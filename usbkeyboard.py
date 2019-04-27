@@ -67,11 +67,13 @@ datas = open(sys.argv[1]).read().split('\n')[:-1]
 cursor_x = 0
 cursor_y = 0
 offset_current_line = 0
-lines = ['','','','','']
+lines = []
 output = ''
 prev_data = ''
 skip_next = False
+lines.append("")
 for data in datas:
+
     if data == prev_data:
         continue
     prev_data = data
@@ -81,8 +83,10 @@ for data in datas:
     if skip_next:
         skip_next = False
         continue
+    
     if key == 0 or int(data.split(':')[3], 16) > 0:
         continue
+    
     if shift != 0:
         shift=1
         skip_next = True
@@ -100,6 +104,8 @@ for data in datas:
     elif KEY_CODES[key][shift] == u'←':
         cursor_x -= 1
     elif KEY_CODES[key][shift] == '\n':
+        
+        lines.append("")
         lines[cursor_y] += output
         cursor_x = 0
         cursor_y += 1
@@ -107,5 +113,8 @@ for data in datas:
     else:
         output += KEY_CODES[key][shift]
         cursor_x += 1
+
+if lines == [""]:
+    lines[0] = output
 
 print '\n'.join(lines)
