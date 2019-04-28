@@ -58,63 +58,67 @@ KEY_CODES = {
     0x52:[u'↑',u'↑']
 }
 
-if len(sys.argv) < 2:
-    print 'Missing file to read...'
-    exit(-1)
 
 #tshark -r ./usb.pcap -Y 'usb.capdata' -T fields -e usb.capdata > keyboards.txt
-datas = open(sys.argv[1]).read().split('\n')[:-1]
-cursor_x = 0
-cursor_y = 0
-offset_current_line = 0
-lines = []
-output = ''
-prev_data = ''
-skip_next = False
-lines.append("")
-for data in datas:
+def read_use(file):
+    datas = open(file).read().split('\n')[:-1]
+    cursor_x = 0
+    cursor_y = 0
+    offset_current_line = 0
+    lines = []
+    output = ''
+    prev_data = ''
+    skip_next = False
+    lines.append("")
+    for data in datas:
 
-    if data == prev_data:
-        continue
-    prev_data = data
-    shift = int(data.split(':')[0], 16) # 0x2 is left shift 0x20 is right shift
-    key = int(data.split(':')[2], 16)
+        if data == prev_data:
+            continue
+        prev_data = data
+        shift = int(data.split(':')[0], 16) # 0x2 is left shift 0x20 is right shift
+        key = int(data.split(':')[2], 16)
 
-    if skip_next:
-        skip_next = False
-        continue
-    
-    if key == 0 or int(data.split(':')[3], 16) > 0:
-        continue
-    
-    if shift != 0:
-        shift=1
-        skip_next = True
-
-    if KEY_CODES[key][shift] == u'↑':
-        lines[cursor_y] += output
-        output = ''
-        cursor_y -= 1
-    elif KEY_CODES[key][shift] == u'↓':
-        lines[cursor_y] += output
-        output = ''
-        cursor_y += 1
-    elif KEY_CODES[key][shift] == u'→':
-        cursor_x += 1
-    elif KEY_CODES[key][shift] == u'←':
-        cursor_x -= 1
-    elif KEY_CODES[key][shift] == '\n':
+        if skip_next:
+            skip_next = False
+            continue
         
-        lines.append("")
-        lines[cursor_y] += output
-        cursor_x = 0
-        cursor_y += 1
-        output = ''
-    else:
-        output += KEY_CODES[key][shift]
-        cursor_x += 1
+        if key == 0 or int(data.split(':')[3], 16) > 0:
+            continue
+        
+        if shift != 0:
+            shift=1
+            skip_next = True
 
-if lines == [""]:
-    lines[0] = output
+        if KEY_CODES[key][shift] == u'↑':
+            lines[cursor_y] += output
+            output = ''
+            cursor_y -= 1
+        elif KEY_CODES[key][shift] == u'↓':
+            lines[cursor_y] += output
+            output = ''
+            cursor_y += 1
+        elif KEY_CODES[key][shift] == u'→':
+            cursor_x += 1
+        elif KEY_CODES[key][shift] == u'←':
+            cursor_x -= 1
+        elif KEY_CODES[key][shift] == '\n':
+            
+            lines.append("")
+            lines[cursor_y] += output
+            cursor_x = 0
+            cursor_y += 1
+            output = ''
+        else:
+            output += KEY_CODES[key][shift]
+            cursor_x += 1
 
-print '\n'.join(lines)
+    if lines == [""]:
+        lines[0] = output
+
+    return '\n'.join(lines)
+
+if __name__ == '__main__':
+    if len(sys.argv) < 2:
+        print 'Missing file to read...'
+        exit(-1)
+    sys.stdout.write(read_use(sys.argv[1]))
