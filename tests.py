@@ -26,6 +26,11 @@ class UsbTestCase(unittest.TestCase):
         with open(outputs+name+'.out', 'r') as f:
             self.assertEqual(read_use(inputs+name), f.read())
 
+    def test_icectf2016_interceptedPartOne(self):
+        name = "icectf2016_interceptedPartOne"
+        with open(outputs+name+'.out', 'r') as f:
+            self.assertEqual(read_use(inputs+name), f.read())
+        
 
 def main():
     unittest.main()

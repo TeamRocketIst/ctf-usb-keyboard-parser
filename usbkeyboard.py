@@ -40,6 +40,7 @@ KEY_CODES = {
     0x27:['0', ')'],
     0x28:['\n','\n'],
     0x29:['[ESC]','[ESC]'],
+    0x2a:['[BACKSPACE]', '[BACKSPACE]'],
     0x2C:[' ', ' '],
     0x2D:['-', '_'],
     0x2E:['=', '+'],
@@ -49,8 +50,9 @@ KEY_CODES = {
     0x33:[';', ':'],
     0x34:['\'', '"'],
     0x36:[',', '<'],
-    0x38:['/', '?'],
     0x37:['.', '>'],
+    0x38:['/', '?'],
+    0x39:['[CAPSLOCK]','[CAPSLOCK]'],
     0x2b:['\t','\t'],
     0x4f:[u'→',u'→'],
     0x50:[u'←',u'←'],
@@ -102,14 +104,18 @@ def read_use(file):
         elif KEY_CODES[key][shift] == u'←':
             cursor_x -= 1
         elif KEY_CODES[key][shift] == '\n':
-            
             lines.append("")
             lines[cursor_y] += output
             cursor_x = 0
             cursor_y += 1
             output = ''
+        elif KEY_CODES[key][shift] == '[BACKSPACE]':
+            output = output[:-1]
+            #lines[cursor_y] = output
+            cursor_x -= 1
         else:
             output += KEY_CODES[key][shift]
+            #lines[cursor_y] = output
             cursor_x += 1
 
     if lines == [""]:
