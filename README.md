@@ -29,3 +29,7 @@ $ tshark -r ./usb.pcap -Y 'usb.capdata && usb.data_len == 8' -T fields -e usb.ca
 00:00:00:00:00:00:00:00
 ...
 ```
+
+### Hid usage tables
+The key mapping is based on https://usb.org/sites/default/files/documents/hut1_12v2.pdf table 12
+if for some reason the link is dead you may find a new one at https://www.usb.org/document-library/hid-usage-tables-112
