@@ -9,13 +9,13 @@ $ python usbkeyboard.py <file>
 
 ### Extract file from pcap (might not work for every pcap)
 ```bash
-$ tshark -r ./usb.pcap -Y 'usb.capdata' -T fields -e usb.capdata > usbPcapData
+$ tshark -r ./usb.pcap -Y 'usb.capdata && usb.data_len == 8' -T fields -e usb.capdata > usbPcapData
 ```
 
 Some versions of tshark don't add ":" between each byte like this:
 
 ```bash
-$ tshark -r ./usb.pcap -Y 'usb.capdata' -T fields -e usb.capdata
+$ tshark -r ./usb.pcap -Y 'usb.capdata && usb.data_len == 8' -T fields -e usb.capdata
 0000240000000000
 0000000000000000
 ...
@@ -24,7 +24,7 @@ $ tshark -r ./usb.pcap -Y 'usb.capdata' -T fields -e usb.capdata
 If this happens you can use sed to add them like this:
 
 ```bash
-$ tshark -r ./usb.pcap -Y 'usb.capdata' -T fields -e usb.capdata | sed 's/../:&/g' | sed 's/^://'
+$ tshark -r ./usb.pcap -Y 'usb.capdata && usb.data_len == 8' -T fields -e usb.capdata | sed 's/../:&/g' | sed 's/^://'
 00:00:24:00:00:00:00:00
 00:00:00:00:00:00:00:00
 ...
