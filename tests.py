@@ -30,6 +30,11 @@ class UsbTestCase(unittest.TestCase):
         name = "icectf2016_interceptedPartOne"
         with open(outputs+name+'.out', 'r') as f:
             self.assertEqual(read_use(inputs+name), f.read())
+
+    def test_hacktm2020_strangePcap(self):
+        name = "hacktm2020_strangePcap"
+        with open(outputs+name+'.out', 'r') as f:
+            self.assertEqual(read_use(inputs+name), f.read())
         
 
 def main():

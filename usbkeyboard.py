@@ -63,7 +63,8 @@ KEY_CODES = {
 
 #tshark -r ./usb.pcap -Y 'usb.capdata' -T fields -e usb.capdata > keyboards.txt
 def read_use(file):
-    datas = open(file).read().split('\n')[:-1]
+    with open(file, 'r') as f:
+        datas = f.read().split('\n')[:-1]
     cursor_x = 0
     cursor_y = 0
     offset_current_line = 0
@@ -125,6 +126,6 @@ def read_use(file):
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        print 'Missing file to read...'
+        print('Missing file to read...')
         exit(-1)
     sys.stdout.write(read_use(sys.argv[1]))
