@@ -11,3 +11,21 @@ $ python usbkeyboard.py <file>
 ```bash
 $ tshark -r ./usb.pcap -Y 'usb.capdata' -T fields -e usb.capdata > usbPcapData
 ```
+
+Some versions of tshark don't add ":" between each byte like this:
+
+```bash
+$ tshark -r ./usb.pcap -Y 'usb.capdata' -T fields -e usb.capdata
+0000240000000000
+0000000000000000
+...
+```
+
+If this happens you can use sed to add them like this:
+
+```bash
+$ tshark -r ./usb.pcap -Y 'usb.capdata' -T fields -e usb.capdata | sed 's/../:&/g' | sed 's/^://'
+00:00:24:00:00:00:00:00
+00:00:00:00:00:00:00:00
+...
+```
