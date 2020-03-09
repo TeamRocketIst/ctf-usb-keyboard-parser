@@ -5,22 +5,22 @@ inputs = "ctf_inputs/inputs/"
 outputs = "ctf_inputs/outputs/"
 
 class UsbTestCase(unittest.TestCase):
-    
+
     def test_bsidessf2019_theKey(self):
         name = "bsidessf2019_theKey"
         with open(outputs+name+'.out', 'r') as f:
             self.assertEqual(read_use(inputs+name), f.read())
-    
+
     def test_hackit2017_usbDucker(self):
         name = "hackit2017_usbDucker"
         with open(outputs+name+'.out', 'r') as f:
             self.assertEqual(read_use(inputs+name), f.read())
-    
+
     def test_picoctf2017_justKeypTrying(self):
         name = "picoctf2017_justKeypTrying"
         with open(outputs+name+'.out', 'r') as f:
             self.assertEqual(read_use(inputs+name), f.read())
-    
+
     def test_sha2017_abuseMail(self):
         name = "sha2017_abuseMail"
         with open(outputs+name+'.out', 'r') as f:
@@ -35,7 +35,11 @@ class UsbTestCase(unittest.TestCase):
         name = "hacktm2020_strangePcap"
         with open(outputs+name+'.out', 'r') as f:
             self.assertEqual(read_use(inputs+name), f.read())
-        
+
+    def test_unknownCtf2020_unknownChallenge(self):
+       name = "unknownCtf2020_unknownChallenge"
+       with open(outputs+name+'.out', 'r') as f:
+            self.assertEqual(read_use(inputs+name), f.read())
 
 def main():
     unittest.main()

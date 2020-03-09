@@ -64,7 +64,8 @@ KEY_CODES = {
 #tshark -r ./usb.pcap -Y 'usb.capdata' -T fields -e usb.capdata > keyboards.txt
 def read_use(file):
     with open(file, 'r') as f:
-        datas = f.read().split('\n')[:-1]
+        datas = f.read().split('\n')
+    datas = [d for d in datas if d]
     cursor_x = 0
     cursor_y = 0
     offset_current_line = 0
@@ -73,8 +74,9 @@ def read_use(file):
     prev_data = ''
     skip_next = False
     lines.append("")
+    
     for data in datas:
-
+        
         if data == prev_data:
             continue
         prev_data = data
