@@ -65,21 +65,16 @@ KEY_CODES = {
 def read_use(file):
     with open(file, 'r') as f:
         datas = f.read().split('\n')
-    datas = [d for d in datas if d]
+    datas = [d.strip() for d in datas if d] 
     cursor_x = 0
     cursor_y = 0
     offset_current_line = 0
     lines = []
     output = ''
-    prev_data = ''
     skip_next = False
     lines.append("")
     
     for data in datas:
-        
-        if data == prev_data:
-            continue
-        prev_data = data
         shift = int(data.split(':')[0], 16) # 0x2 is left shift 0x20 is right shift
         key = int(data.split(':')[2], 16)
 
