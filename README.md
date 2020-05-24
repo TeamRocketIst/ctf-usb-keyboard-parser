@@ -24,7 +24,7 @@ $ tshark -r ./usb.pcap -Y 'usb.capdata && usb.data_len == 8' -T fields -e usb.ca
 If this happens you can use sed to add them like this:
 
 ```bash
-$ tshark -r ./usb.pcap -Y 'usb.capdata && usb.data_len == 8' -T fields -e usb.capdata | sed 's/../:&/g' | sed 's/^://'
+$ tshark -r ./usb.pcap -Y 'usb.capdata && usb.data_len == 8' -T fields -e usb.capdata | sed 's/../:&/g2'
 00:00:24:00:00:00:00:00
 00:00:00:00:00:00:00:00
 ...
