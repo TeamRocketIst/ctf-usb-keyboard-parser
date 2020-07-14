@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import unittest
 from usbkeyboard import read_use
 
@@ -38,6 +40,11 @@ class UsbTestCase(unittest.TestCase):
 
     def test_unknownCtf2020_unknownChallenge(self):
        name = "unknownCtf2020_unknownChallenge"
+       with open(outputs+name+'.out', 'r') as f:
+            self.assertEqual(read_use(inputs+name), f.read())
+
+    def test_rgbctf2020_PI_1_MagicInTheAir(self):
+       name = "rgbctf2020_PI_1_MagicInTheAir"
        with open(outputs+name+'.out', 'r') as f:
             self.assertEqual(read_use(inputs+name), f.read())
 
