@@ -73,7 +73,6 @@ def read_use(file):
     output = ''
     skip_next = False
     lines.append("")
-    
     for data in datas:
         shift = int(data.split(':')[0], 16) # 0x2 is left shift 0x20 is right shift
         key = int(data.split(':')[2], 16)
@@ -88,7 +87,7 @@ def read_use(file):
         if shift != 0:
             shift=1
             skip_next = True
-
+        
         if KEY_CODES[key][shift] == u'↑':
             lines[cursor_y] += output
             output = ''
@@ -115,10 +114,11 @@ def read_use(file):
             output += KEY_CODES[key][shift]
             #lines[cursor_y] = output
             cursor_x += 1
-
+    #print(lines)
     if lines == [""]:
         lines[0] = output
-
+    if output != '' and output not in lines:
+        lines[cursor_y] += output
     return '\n'.join(lines)
 
 if __name__ == '__main__':

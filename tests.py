@@ -48,6 +48,11 @@ class UsbTestCase(unittest.TestCase):
        with open(outputs+name+'.out', 'r') as f:
             self.assertEqual(read_use(inputs+name), f.read())
 
+    def test_unknown2021_noEnterOrUpDownMoreThanOneLines(self):
+       name = "unknown2021_noEnterOrUpDownMoreThanOneLines"
+       with open(outputs+name+'.out', 'r') as f:
+            self.assertEqual(read_use(inputs+name), f.read())
+
 def main():
     unittest.main()
 
