@@ -48,8 +48,8 @@ class UsbTestCase(unittest.TestCase):
        with open(outputs+name+'.out', 'r') as f:
             self.assertEqual(read_use(inputs+name), f.read())
 
-    def test_unknown2021_noEnterOrUpDownMoreThanOneLines(self):
-       name = "unknown2021_noEnterOrUpDownMoreThanOneLines"
+    def test_volgactf2021_stream(self):
+       name = "volgactf2021_stream"
        with open(outputs+name+'.out', 'r') as f:
             self.assertEqual(read_use(inputs+name), f.read())
 
